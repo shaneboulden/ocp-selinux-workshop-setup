@@ -36,7 +36,7 @@ spec:
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: unix-socket
-              mountPath: /var/run/docker.sock
+              mountPath: /var/run/crio/crio.sock
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
@@ -45,7 +45,7 @@ spec:
       volumes:
         - name: unix-socket
           hostPath:
-            path: /var/run/docker.sock
+            path: /var/run/crio/crio.sock
   strategy:
     type: RollingUpdate
     rollingUpdate:

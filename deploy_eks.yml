@@ -1,0 +1,23 @@
+---
+- name: Deploy EKS
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  tasks:
+    - name: Create an EKS cluster
+      shell: >
+        eksctl create cluster --name cluster1 
+        --version 1.21 --without-nodegroup
+
+    - name: Create a managed host group
+      shell: >
+        eksctl create nodegroup --cluster cluster1 
+        --region ap-southeast-2 --name mng1 
+        --node-type m5.large --nodes 1 
+        --nodes-min 1 --nodes-max 2 
+        --ssh-access --ssh-public-key keypair-01
+
+    - name: Rename kubectx context
+      shell: >
+        kubectx eks=.

@@ -8,7 +8,7 @@
     - name: Retrieve Stackrox URL
       shell: oc get route central -n stackrox -o json | jq -r .spec.host
       register: stackrox_route
-    
+
     - name: Generate Stackrox API token
       uri:
         url: https://{{ stackrox_route.stdout }}/v1/apitokens/generate
