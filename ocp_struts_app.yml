@@ -8,6 +8,7 @@
     - name: Rename kubectx context
       shell: >
         kubectx openshift=.
+      ignore_errors: yes
 
     - name: Create project for struts app
       k8s:

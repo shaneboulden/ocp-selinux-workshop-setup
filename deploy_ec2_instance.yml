@@ -45,7 +45,7 @@
 
     - name: Create security group
       ec2_group:
-        name: acs-demo
+        name: acs-demo-struts
         description: ACS demo security group
         vpc_id: "{{ vpc_net.vpc.id }}"
         rules:
@@ -68,7 +68,7 @@
     - name: Create an EC2 instance
       ec2:
         key_name: keypair-01
-        group: acs-demo
+        group: acs-demo-struts
         instance_type: t2.medium
         image: ami-0a443decce6d88dc2
         wait: yes
@@ -76,9 +76,9 @@
         vpc_subnet_id: "{{ vpc_subnet.subnet.id }}"
         assign_public_ip: yes
         instance_tags:
-          Name: acs-demo-01
+          Name: acs-demo-02
         count_tag:
-          Name: acs-demo-01
+          Name: acs-demo-02
         exact_count: 1
 
     # This is needed for idempotency (as opposed to registering output from
@@ -86,7 +86,7 @@
     - name: Get EC2 instance info
       ec2_instance_info:
         filters:
-          "tag:Name": acs-demo-01
+          "tag:Name": acs-demo-02
       register: ec2_instance
 
     - name: Add new instance to host group
